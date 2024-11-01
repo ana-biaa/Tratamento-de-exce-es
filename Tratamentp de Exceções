@@ -1,0 +1,49 @@
+package atividade_28.pkg10;
+
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+class IdadeInvalidaException extends Exception{
+    public IdadeInvalidaException(String mensagem) {
+        super(mensagem);
+}
+}
+public class Atividade_2810 {
+
+    public static void verificarIdade (int idade) throws IdadeInvalidaException{
+        if (idade < 0 || idade > 150){
+            throw new IdadeInvalidaException("Erro: Idade invalida. A idade deve estar entre 0 e 150.");
+        }
+        
+    }
+    public static void main(String[] args) {
+        // Atividade Otaviano - tratamento de exceções
+        Scanner entrada = new Scanner(System.in);
+        int x;
+        System.out.println("quantas pessoas dejeva cadastrar: ");
+        x = entrada.nextInt();
+        int [] idade = new int [x];
+        for (int i = 0; i < idade.length; i++) {
+            boolean idadeValida = false;
+            while (!idadeValida) { //enquanto a idadeValida for falsa o loop continua
+                System.out.println("Digite a idade da pessoa " + (i+1) + ": ");
+                try {
+                    int idadeInput = entrada.nextInt();
+                    verificarIdade(idadeInput);
+                    idade[i] = idadeInput;
+                    idadeValida = true;
+                } catch (IdadeInvalidaException e){
+                     System.out.println(e.getMessage());
+                }catch (InputMismatchException e) {
+                    System.out.println("Erro: Valor inválido. Insira um número inteiro.");
+                    entrada.next();
+            }
+        }
+        
+    }
+        System.out.println("Idades cadastradas: ");
+        for (int idades : idade) {
+            System.out.println(idades);
+        }
+}
+}
